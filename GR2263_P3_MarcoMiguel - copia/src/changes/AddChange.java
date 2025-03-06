@@ -5,7 +5,7 @@ public class AddChange extends Change {
     private String filePath;
 
     public AddChange(int startLine, String filePath, String content) {
-        super(startLine, filePath);
+        super(startLine, filePath, "+");
         this.startLine = startLine;
         this.filePath = filePath;
         this.content = content;
@@ -26,7 +26,7 @@ public class AddChange extends Change {
     
     
     public String toString() {
-    	return "{\n type=+,\n start line=" + startLine
+    	return "{\n type=" + super.getType() + ",\n start line=" + startLine
     			+ ",\n file path='" + filePath
     			+ "',\n content='" + content
     			+ "',\n number of lines=" + getContentLines()

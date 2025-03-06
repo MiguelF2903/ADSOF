@@ -28,8 +28,9 @@ public class MergeCommit extends Commit{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(super.toString() + "\n");
+        sb.append("Merged commits:\n");
         for (Commit c : commits) {
-            sb.append(c.toString()).append("\n");
+            sb.append(c.getId()).append(" on ").append(c.getFechaCreacion()).append("\n");
         }
         return sb.toString();
     }

@@ -6,14 +6,14 @@ public class RemoveChange extends Change {
     private String filePath;
 
     public RemoveChange(int startLine, int endLine, String filePath) {
-        super(startLine, filePath);
+        super(startLine, filePath, "-");
         this.startLine = startLine;
         this.endLine = endLine;
         this.filePath = filePath;
     }
     
     public String toString() {
-    	return "{\n type=-,\n start line=" + startLine
+    	return "{\n type=" + super.getType() + ",\n start line=" + startLine
     			+ ",\n file path='" + filePath 
     			+ "',\n end line=" + endLine
     			+ "\n}";

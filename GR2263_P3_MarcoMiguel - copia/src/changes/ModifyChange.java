@@ -7,7 +7,7 @@ public class ModifyChange extends Change {
     private String filePath;
 
     public ModifyChange(int startLine, int endLine, String filePath, String change) {
-        super(startLine, filePath);
+        super(startLine, filePath, "/");
         this.startLine = startLine;
         this.endLine = endLine;
         this.filePath = filePath;
@@ -16,7 +16,7 @@ public class ModifyChange extends Change {
 
     @Override
     public String toString() {
-        return "{\n type=/,\n start line=" + startLine 
+        return "{\n type=" + super.getType() + ",\n start line= + startLine" 
             + ",\n file path='" + filePath + "'" 
             + ",\n content='" + change + "'" 
             + ",\n number of lines=" + (endLine - startLine + 1) 

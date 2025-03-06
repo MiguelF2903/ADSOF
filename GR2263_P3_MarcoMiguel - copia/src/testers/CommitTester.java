@@ -20,9 +20,9 @@ public class CommitTester {
         Change c5 = new AddChange(1, "/src/pkg1/Decorator.java", "// Decorator pattern");
         Change c6 = new ModifyChange(2, 2, "/src/pkg1/Decorator.java", "// Interface modified");
 
-        ChangeCommit commit2 = new ChangeCommit("John Doe", "Decorator interface", Arrays.asList(c4, c5, c6));
+        ChangeCommit commit2 = new ChangeCommit("Decorator interface", "John Doe", Arrays.asList(c4, c5, c6));
 
-        MergeCommit mergeCommit = new MergeCommit("John Doe", "Merging previous commits", Arrays.asList(commit1, commit2));
+        MergeCommit mergeCommit = new MergeCommit("Merging previous commits", "John Doe", Arrays.asList(commit1, commit2));
 
         System.out.println(commit1);
         System.out.println(commit2);

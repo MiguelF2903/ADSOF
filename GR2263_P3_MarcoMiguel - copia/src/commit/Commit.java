@@ -7,14 +7,14 @@ public abstract class Commit {
 	private static int cont = 0;
 	private String id;
 	private String nombreAutor;
-	private LocalDateTime fechaCreacion;
+	private LocalDate fechaCreacion;
 	private String descripcion;
 	
 	public Commit(String autor, String desc){
 		this.id = generateId();
 		this.nombreAutor = autor;
 		this.descripcion = desc;
-		this.fechaCreacion = LocalDateTime.now();
+		this.fechaCreacion = LocalDate.now();
 	}
 
 	public Commit(String autor){
@@ -27,7 +27,7 @@ public abstract class Commit {
 
 	public String generateId() {
 		cont++;
-		return String.format("05%", cont) + UUID.randomUUID().toString().substring(0, 15);
+		return String.format("%05d", cont) + UUID.randomUUID().toString().replace("-", "").substring(0, 15);
 	}
 	
 	public String getId() {
@@ -38,7 +38,7 @@ public abstract class Commit {
         return nombreAutor;
     }
 
-    public LocalDateTime getFechaCreacion() {
+    public LocalDate getFechaCreacion() {
         return fechaCreacion;
     }
 
@@ -48,7 +48,7 @@ public abstract class Commit {
 
 	@Override
 	public String toString(){
-		return "commit" + this.id + "\n" + "Author: " + this.nombreAutor + "\n" + "Date" + this.fechaCreacion
+		return "commit " + this.id + "\n" + "Author: " + this.nombreAutor + "\n" + "Date: " + this.fechaCreacion
 		+ "\n" + "Description: " + this.descripcion;
 	}
 

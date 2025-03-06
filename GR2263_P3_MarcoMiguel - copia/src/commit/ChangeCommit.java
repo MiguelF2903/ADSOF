@@ -30,7 +30,7 @@ public class ChangeCommit extends Commit{
     public String toString() {
         StringBuilder sb = new StringBuilder(super.toString() + "\n");
         for (Change c : changes) {
-            sb.append(c.toString()).append("\n");
+            sb.append(c.getClass()).append("\n");
         }
         return sb.toString();
     }
