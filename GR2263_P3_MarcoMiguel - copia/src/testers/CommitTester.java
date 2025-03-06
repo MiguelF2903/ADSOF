@@ -16,7 +16,7 @@ public class CommitTester {
 
         ChangeCommit commit1 = new ChangeCommit(Arrays.asList(c1, c2, c3));
 
-        Change c4 = new AddChange(0, "/src/pkg1/Decorator.java", "class Decorator {}");
+        Change c4 = new AddChange(0, "/src/pkg1/Decorator.java", "class Decorator {}\n interface Decorator{}\n toString()");
         Change c5 = new AddChange(1, "/src/pkg1/Decorator.java", "// Decorator pattern");
         Change c6 = new ModifyChange(2, 2, "/src/pkg1/Decorator.java", "// Interface modified");
 

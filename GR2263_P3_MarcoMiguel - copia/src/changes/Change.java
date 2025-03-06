@@ -3,9 +3,9 @@ package changes;
 public abstract class Change {
 	private String file;
 	private int line;
-	private String type;
+	private char type;
 	
-	public Change(int line, String file, String type) {
+	public Change(int line, String file, char type) {
 		this.line = line;
 		this.file = file;
 		this.type = type;
@@ -19,9 +19,13 @@ public abstract class Change {
 		return this.line;
 	}
 
-	public String getType(){
+	public char getType(){
 		return this.type;
 	}
+
+	public String getNumberChanges(){
+        return null;
+    }
 	
 
 }

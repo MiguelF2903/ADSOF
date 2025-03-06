@@ -5,10 +5,15 @@ public class AddChange extends Change {
     private String filePath;
 
     public AddChange(int startLine, String filePath, String content) {
-        super(startLine, filePath, "+");
+        super(startLine, filePath, '+');
         this.startLine = startLine;
         this.filePath = filePath;
         this.content = content;
+    }
+
+    @Override
+    public String getNumberChanges(){
+        return "+" + Integer.toString(this.getContentLines());
     }
     
     public int getContentLines() {
@@ -22,8 +27,10 @@ public class AddChange extends Change {
         return count;
     }
 
-    
-    
+    @Override
+    public char getType(){
+        return super.getType();
+    }
     
     public String toString() {
     	return "{\n type=" + super.getType() + ",\n start line=" + startLine

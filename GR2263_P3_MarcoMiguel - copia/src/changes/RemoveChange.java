@@ -6,10 +6,28 @@ public class RemoveChange extends Change {
     private String filePath;
 
     public RemoveChange(int startLine, int endLine, String filePath) {
-        super(startLine, filePath, "-");
+        super(startLine, filePath, '-');
         this.startLine = startLine;
         this.endLine = endLine;
         this.filePath = filePath;
+    }
+
+    @Override
+    public char getType(){
+        return super.getType();
+    }
+
+    public int getStartLine(){
+        return startLine;
+    }
+
+    public int getEndLine(){
+        return endLine;
+    }
+
+    @Override
+    public String getNumberChanges(){
+        return "-" + Integer.toString(this.getEndLine() - this.getStartLine() + 1);
     }
     
     public String toString() {
