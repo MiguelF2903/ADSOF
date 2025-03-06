@@ -9,6 +9,9 @@ public abstract class Change {
 		this.file = file;
 	}
 	
+	public String getFile() {
+        return file;
+    }
 	
 
 }

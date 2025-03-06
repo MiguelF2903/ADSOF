@@ -27,9 +27,25 @@ public abstract class Commit {
 
 	public String generateId() {
 		cont++;
-		return String.format("05%", cont) + UUID.randomUUID().toString();
+		return String.format("05%", cont) + UUID.randomUUID().toString().substring(0, 15);
 	}
 	
+	public String getId() {
+        return id;
+    }
+
+    public String getNombreAutor() {
+        return nombreAutor;
+    }
+
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
 	@Override
 	public String toString(){
 		return "commit" + this.id + "\n" + "Author: " + this.nombreAutor + "\n" + "Date" + this.fechaCreacion
