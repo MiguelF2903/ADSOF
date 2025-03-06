@@ -1,5 +1,10 @@
-package changes;
+package testers;
 import java.util.*;
+
+import changes.AddChange;
+import changes.Change;
+import changes.ModifyChange;
+import changes.RemoveChange;
 
 public class ChangeTester {
 	public static void main (String[] args) {
