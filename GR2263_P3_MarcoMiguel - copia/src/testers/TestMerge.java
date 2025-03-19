@@ -12,7 +12,6 @@ public class TestMerge {
         Repository repo = new Repository("ADSOF p3");
         repo.addUser("usuario1");
         
-        // Crear lista de cambios para los commits en main
         List<Change> changes1 = new ArrayList<>();
         changes1.add(new AddChange(1, "Main.java", "Add main class"));
         
@@ -22,14 +21,12 @@ public class TestMerge {
         List<Change> changes3 = new ArrayList<>();
         changes3.add(new AddChange(1, "Main.java", "Merge changes"));
         
-        // Crear commits en main
         repo.commit(new ChangeCommit("no comment", "usuario1", changes1));
         repo.commit(new ChangeCommit("Decorator interface", "usuario1", changes2));
         repo.commit(new ChangeCommit("Merging previous commits", "usuario1", changes3));
         
         System.out.println(repo);
         
-        // Crear nueva rama y añadir un commit
         repo.createBranch("Solving issue #1", "main");
         repo.changeActiveBranch("Solving issue #1");
         

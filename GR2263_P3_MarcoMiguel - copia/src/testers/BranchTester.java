@@ -2,39 +2,43 @@ package testers;
 
 import commit.Commit;
 import java.time.LocalDate;
-
 import branches.Branch;
 
 public class BranchTester {
-    
-    static class TestCommit extends Commit {
-        private String id;
-        private LocalDate fecha;
-        
-        public TestCommit(String id, String autor, String desc, LocalDate fecha) {
-            super(autor, desc);
-            this.id = id;
-            this.fecha = fecha;
-        }
-        
-        @Override
-        public String getId() {
-            return id;
-        }
-        
-        @Override
-        public LocalDate getFechaCreacion() {
-            return fecha;
-        }
-    }
-    
     public static void main(String[] args) {
-        LocalDate fechaFija = LocalDate.of(2025, 2, 21);
+        LocalDate date = LocalDate.now();
         
         Branch main = new Branch("main");
-        main.commit(new TestCommit("00001", "Alice", "no comment", fechaFija));
-        main.commit(new TestCommit("00002", "Alice", "Decorator interface", fechaFija));
-        main.commit(new TestCommit("00003", "Alice", "Merging previous commits", fechaFija));
+        main.commit(new Commit("Alice", "no comment") {
+            @Override
+            public String getId() {
+                return "00001";
+            }
+            @Override
+            public LocalDate getFechaCreacion() {
+                return date;
+            }
+        });
+        main.commit(new Commit("Alice", "Decorator interface") {
+            @Override
+            public String getId() {
+                return "00002";
+            }
+            @Override
+            public LocalDate getFechaCreacion() {
+                return date;
+            }
+        });
+        main.commit(new Commit("Alice", "Merging previous commits") {
+            @Override
+            public String getId() {
+                return "00003";
+            }
+            @Override
+            public LocalDate getFechaCreacion() {
+                return date;
+            }
+        });
         
         Branch solvingIssue = new Branch("Solving issue #1 (from main)", main);
         
