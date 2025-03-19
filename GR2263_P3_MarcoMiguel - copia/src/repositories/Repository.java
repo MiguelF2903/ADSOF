@@ -1,34 +1,35 @@
 package repositories;
 import branches.*;
 import commit.Commit;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import strategies.MergeStrategy;
+import commit.MergeCommit;
 
 public class Repository {
     private String nombre;
     private Map<String, Branch> ramas;
     private Branch ramaActiva;
-    private Set<String> usuarios; // Usuarios con permiso para realizar commits
+    private Set<String> usuarios;
+    private MergeStrategy defaultStrategy;
 
     public Repository(String nombre) {
         this.nombre = nombre;
-        // Usamos LinkedHashMap para preservar el orden de inserción de las ramas
         ramas = new LinkedHashMap<>();
         usuarios = new HashSet<>();
-        // Se crea automáticamente la rama "main" y se establece como activa
         Branch main = new Branch("main");
         ramas.put("main", main);
         ramaActiva = main;
+        this.defaultStrategy = new MergeStrategy(MergeStrategy.STRATEGY_NULL);
+    }
+
+    public void setDefaultStrategy(MergeStrategy strategy) {
+        this.defaultStrategy = strategy;
     }
     
-    // Agrega un usuario con permiso para realizar commits.
     public void addUser(String usuario) {
         usuarios.add(usuario);
     }
     
-    // Crea una nueva rama a partir de una rama existente.
     public void createBranch(String nombreNueva, String nombreOrigen) {
         Branch origen = ramas.get(nombreOrigen);
         if (origen == null) {
@@ -38,7 +39,6 @@ public class Repository {
         ramas.put(nombreNueva, nueva);
     }
     
-    // Permite cambiar la rama activa (no se utiliza en este tester, pero se incluye para completar la funcionalidad).
     public void changeActiveBranch(String nombreRama) {
         Branch rama = ramas.get(nombreRama);
         if (rama == null) {
@@ -47,7 +47,6 @@ public class Repository {
         ramaActiva = rama;
     }
     
-    // Realiza un commit en la rama activa, siempre que el usuario tenga permiso.
     public void commit(Commit commit) {
         if (!usuarios.contains(commit.getNombreAutor())) {
             System.out.println("El usuario " + commit.getNombreAutor() + " no tiene permiso para realizar commits.");
@@ -56,8 +55,82 @@ public class Repository {
         ramaActiva.commit(commit);
     }
     
-    // Imprime el repositorio mostrando la lista de ramas (marcando la activa con un asterisco)
-    // y a continuación el detalle de la rama activa.
+    public List<String> merge(String sourceBranchName, String targetBranchName) {
+        return merge(sourceBranchName, targetBranchName, defaultStrategy);
+    }
+
+    public List<String> merge(String sourceBranchName, String targetBranchName, MergeStrategy strategy) {
+        Branch sourceBranch = ramas.get(sourceBranchName);
+        Branch targetBranch = ramas.get(targetBranchName);
+        
+        if (sourceBranch == null || targetBranch == null) {
+            return null;
+        }
+        
+        Commit commonCommit = findCommonCommit(sourceBranch, targetBranch);
+        if (commonCommit == null) {
+            return null;
+        }
+        
+        List<Commit> newCommits = getNewCommits(sourceBranch, commonCommit);
+        List<String> conflicts = findConflicts(newCommits, targetBranch, commonCommit, strategy);
+        
+        if (conflicts.isEmpty()) {
+            MergeCommit mergeCommit = new MergeCommit("Merge branches " + targetBranchName + 
+                " and " + sourceBranchName, "system", newCommits);
+            targetBranch.commit(mergeCommit);
+        }
+        
+        return conflicts;
+    }
+    
+    private Commit findCommonCommit(Branch source, Branch target) {
+        for (Commit sourceCommit : source.getCommits()) {
+            for (Commit targetCommit : target.getCommits()) {
+                if (sourceCommit.getId().equals(targetCommit.getId())) {
+                    return sourceCommit;
+                }
+            }
+        }
+        return null;
+    }
+    
+    private List<Commit> getNewCommits(Branch branch, Commit commonCommit) {
+        List<Commit> result = new ArrayList<>();
+        List<Commit> commits = branch.getCommits();
+        boolean foundCommon = false;
+        
+        for (Commit commit : commits) {
+            if (foundCommon) {
+                result.add(commit);
+            }
+            if (commit.getId().equals(commonCommit.getId())) {
+                foundCommon = true;
+            }
+        }
+        
+        return result;
+    }
+    
+    private List<String> findConflicts(List<Commit> newCommits, Branch targetBranch, 
+        Commit commonCommit, MergeStrategy strategy) {
+        List<String> conflicts = new ArrayList<>();
+        List<Commit> targetCommits = targetBranch.getCommits();
+        int startIndex = targetCommits.indexOf(commonCommit) + 1;
+        
+        for (Commit sourceCommit : newCommits) {
+            for (int i = startIndex; i < targetCommits.size(); i++) {
+                Commit targetCommit = targetCommits.get(i);
+                if (sourceCommit.modifiesSameFile(targetCommit) && 
+                    !strategy.resolveConflict(sourceCommit, targetCommit)) {
+                    conflicts.add("Conflict on '" + sourceCommit.getFileName() + "'");
+                }
+            }
+        }
+        
+        return conflicts;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -68,7 +141,7 @@ public class Repository {
             if (branch == ramaActiva) {
                 sb.append("- ").append(branch.getNombre()).append(" (active) ").append("\n");
             } else {
-                sb.append("- ").append(branch.getNombre());
+                sb.append("- ").append(branch.getNombre()).append("\n");
             }
         }
         sb.append("\n");

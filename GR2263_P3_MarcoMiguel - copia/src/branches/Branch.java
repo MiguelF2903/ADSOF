@@ -21,6 +21,15 @@ public class Branch {
     public void commit(Commit commit) {
         commits.add(commit);
     }
+
+    public Commit getCommit(String id) {
+        for (Commit commit : commits) {
+            if (commit.getId().equals(id)) {
+                return commit;
+            }
+        }
+        return null;
+    }
     
     public List<Commit> getCommits() {
         return commits;

@@ -46,6 +46,15 @@ public abstract class Commit {
         return descripcion;
     }
 
+	public boolean modifiesSameFile(Commit other) {
+		if (other == null) return false;
+		return this.getFileName().equals(other.getFileName());
+	}
+	
+	public  String getFileName(){
+		return "";
+	}
+
 	@Override
 	public String toString(){
 		return "commit " + this.id + "\n" + "Author: " + this.nombreAutor + "\n" + "Date: " + this.fechaCreacion
