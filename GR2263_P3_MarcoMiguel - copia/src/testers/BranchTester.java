@@ -15,7 +15,7 @@ public class BranchTester {
                 return "00001";
             }
             @Override
-            public LocalDate getFechaCreacion() {
+            public LocalDate getCreationDate() {
                 return date;
             }
         });
@@ -25,7 +25,7 @@ public class BranchTester {
                 return "00002";
             }
             @Override
-            public LocalDate getFechaCreacion() {
+            public LocalDate getCreationDate() {
                 return date;
             }
         });
@@ -35,12 +35,12 @@ public class BranchTester {
                 return "00003";
             }
             @Override
-            public LocalDate getFechaCreacion() {
+            public LocalDate getCreationDate() {
                 return date;
             }
         });
         
-        Branch solvingIssue = new Branch("Solving issue #1 (from main)", main);
+        Branch solvingIssue = new Branch("Solving issue #1", main);
         
         System.out.println(main);
         System.out.println(solvingIssue);

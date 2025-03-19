@@ -18,7 +18,7 @@ public class RepositoryTester {
                 return "00001";
             }
             @Override
-            public LocalDate getFechaCreacion() {
+            public LocalDate getCreationDate() {
                 return date;
             }
         });
@@ -28,7 +28,7 @@ public class RepositoryTester {
                 return "00002";
             }
             @Override
-            public LocalDate getFechaCreacion() {
+            public LocalDate getCreationDate() {
                 return date;
             }
         });
@@ -38,7 +38,7 @@ public class RepositoryTester {
                 return "00003";
             }
             @Override
-            public LocalDate getFechaCreacion() {
+            public LocalDate getCreationDate() {
                 return date;
             }
         });

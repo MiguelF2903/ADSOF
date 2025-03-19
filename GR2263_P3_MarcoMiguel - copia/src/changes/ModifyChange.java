@@ -2,10 +2,8 @@ package changes;
 
 /**
  * Representa un cambio de tipo modificación en un archivo.
- * <p>
  * Esta clase encapsula la información necesaria para representar un cambio que modifica
  * el contenido existente en un rango de líneas de un archivo.
- * </p>
  */
 public class ModifyChange extends Change {
     /** Contenido del cambio a aplicar. */
@@ -38,9 +36,6 @@ public class ModifyChange extends Change {
 
     /**
      * Retorna el tipo de cambio.
-     * <p>
-     * Este método utiliza la implementación de la clase base {@link Change}.
-     * </p>
      *
      * @return el carácter que representa el tipo de cambio
      */
@@ -69,10 +64,6 @@ public class ModifyChange extends Change {
 
     /**
      * Retorna una representación en forma de cadena del número de cambios realizados.
-     * <p>
-     * En este caso, se retorna "0" ya que la modificación no agrega ni elimina líneas,
-     * solo reemplaza el contenido existente.
-     * </p>
      *
      * @return la cadena "0"
      */

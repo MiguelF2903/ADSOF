@@ -2,7 +2,7 @@ package changes;
 
 /**
  * Representa un cambio de tipo "añadir" en un archivo.
- * Esta clase extiende {@link Change} y se utiliza para encapsular la información
+ * Esta clase extiende Change y se utiliza para encapsular la información
  * de un cambio que agrega contenido a un archivo en una posición determinada.
  */
 public class AddChange extends Change {
@@ -58,7 +58,6 @@ public class AddChange extends Change {
 
     /**
      * Retorna el tipo de cambio.
-     * Este método utiliza la implementación de la clase base {@link Change}.
      *
      * @return el carácter que representa el tipo de cambio
      */

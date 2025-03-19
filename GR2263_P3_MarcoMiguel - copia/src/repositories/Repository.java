@@ -8,11 +8,9 @@ import commit.MergeCommit;
 
 /**
  * Representa un repositorio que gestiona ramas, commits y usuarios.
- * <p>
  * Esta clase permite crear ramas, realizar commits y fusionar ramas utilizando
  * una estrategia de merge por defecto. Los usuarios autorizados pueden hacer commits
  * en el repositorio.
- * </p>
  */
 public class Repository {
     /** Nombre del repositorio. */
@@ -28,10 +26,6 @@ public class Repository {
 
     /**
      * Crea un nuevo repositorio con el nombre especificado.
-     * <p>
-     * Se inicializa la rama principal ("main") como la rama activa y se establece
-     * la estrategia de merge por defecto.
-     * </p>
      *
      * @param name el nombre del repositorio
      */
@@ -65,9 +59,6 @@ public class Repository {
     
     /**
      * Crea una nueva rama a partir de una rama existente.
-     * <p>
-     * Si la rama origin no existe, se imprime un mensaje y no se crea la nueva rama.
-     * </p>
      *
      * @param nameNew el nombre de la nueva rama
      * @param nameOrigin el nombre de la rama origin
@@ -84,9 +75,6 @@ public class Repository {
     
     /**
      * Cambia la rama activa del repositorio.
-     * <p>
-     * Si la rama especificada no existe, se imprime un mensaje y no se cambia la rama activa.
-     * </p>
      *
      * @param nameBranch el nombre de la rama a activar
      */
@@ -101,15 +89,12 @@ public class Repository {
     
     /**
      * Realiza un commit en la rama activa del repositorio.
-     * <p>
-     * Si el autor del commit no está autorizado, se imprime un mensaje y el commit no se realiza.
-     * </p>
      *
      * @param commit el commit a agregar a la rama activa
      */
     public void commit(Commit commit) {
-        if (!users.contains(commit.getNombreAutor())) {
-            System.out.println("El usuario " + commit.getNombreAutor() + " no tiene permiso para realizar commits.");
+        if (!users.contains(commit.getAuthorName())) {
+            System.out.println("El usuario " + commit.getAuthorName() + " no tiene permiso para realizar commits.");
             return;
         }
         activeBranch.commit(commit);
@@ -120,7 +105,7 @@ public class Repository {
      *
      * @param sourceBranchName el nombre de la rama fuente que se va a fusionar
      * @param targetBranchName el nombre de la rama destino en la que se fusionará la fuente
-     * @return una lista de conflictos encontrados durante la fusión, o {@code null} si no se pudo fusionar
+     * @return una lista de conflictos encontrados durante la fusión, o null si no se pudo fusionar
      */
     public List<String> merge(String sourceBranchName, String targetBranchName) {
         return merge(sourceBranchName, targetBranchName, defaultStrategy);
@@ -132,7 +117,7 @@ public class Repository {
      * @param sourceBranchName el nombre de la rama fuente que se va a fusionar
      * @param targetBranchName el nombre de la rama destino en la que se fusionará la fuente
      * @param strategy la estrategia de merge a utilizar para resolver conflictos
-     * @return una lista de conflictos encontrados durante la fusión, o {@code null} si no se pudo fusionar
+     * @return una lista de conflictos encontrados durante la fusión, o null si no se pudo fusionar
      */
     public List<String> merge(String sourceBranchName, String targetBranchName, MergeStrategy strategy) {
         Branch sourceBranch = branches.get(sourceBranchName);
@@ -164,7 +149,7 @@ public class Repository {
      *
      * @param source la rama fuente
      * @param target la rama destino
-     * @return el commit común encontrado, o {@code null} si no hay ningún commit común
+     * @return el commit común encontrado, o null si no hay ningún commit común
      */
     private Commit findCommonCommit(Branch source, Branch target) {
         for (Commit sourceCommit : source.getCommits()) {
@@ -230,10 +215,6 @@ public class Repository {
 
     /**
      * Retorna una representación en forma de cadena del repositorio.
-     * <p>
-     * La representación incluye el nombre del repositorio, las ramas disponibles y la
-     * descripción de la rama activa.
-     * </p>
      *
      * @return una cadena que representa el estado del repositorio
      */
@@ -245,9 +226,9 @@ public class Repository {
         for (String nameBranch : branches.keySet()) {
             Branch branch = branches.get(nameBranch);
             if (branch == activeBranch) {
-                sb.append("- ").append(branch.getNombre()).append(" (active) ").append("\n");
+                sb.append("- ").append(branch.getName()).append(" (active) ").append("\n");
             } else {
-                sb.append("- ").append(branch.getNombre()).append("\n");
+                sb.append("- ").append(branch.getName()).append("\n");
             }
         }
         sb.append(activeBranch.toString());

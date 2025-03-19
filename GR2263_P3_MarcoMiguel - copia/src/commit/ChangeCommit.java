@@ -5,11 +5,9 @@ import changes.Change;
 
 /**
  * Representa un commit que agrupa una lista de cambios.
- * <p>
- * La clase ChangeCommit extiende de {@link Commit} y permite asociar múltiples
- * instancias de {@link Change} a un mismo commit. Esto facilita el manejo de
+ * La clase ChangeCommit extiende de Commit y permite asociar múltiples
+ * instancias de Change a un mismo commit. Esto facilita el manejo de
  * operaciones que involucran más de un cambio en el repositorio.
- * </p>
  */
 public class ChangeCommit extends Commit {
 
@@ -52,7 +50,7 @@ public class ChangeCommit extends Commit {
     /**
      * Retorna la lista de cambios asociados a este commit.
      *
-     * @return la lista de {@link Change} de este commit
+     * @return la lista de Change de este commit
      */
     public List<Change> getChanges() {
         return this.changes;
@@ -60,10 +58,6 @@ public class ChangeCommit extends Commit {
 
     /**
      * Retorna el nombre del archivo afectado por el commit.
-     * <p>
-     * Se devuelve el archivo del primer cambio en la lista de cambios. Si la lista
-     * es nula o está vacía, se retorna una cadena vacía.
-     * </p>
      *
      * @return el nombre del archivo del primer cambio, o una cadena vacía si no hay cambios
      */
@@ -72,7 +66,7 @@ public class ChangeCommit extends Commit {
         if (changes == null || changes.isEmpty()) {
             return "";
         }
-        return changes.get(0).getFile(); // Devolvemos el archivo del primer cambio
+        return changes.get(0).getFile();
     }
 
     /**

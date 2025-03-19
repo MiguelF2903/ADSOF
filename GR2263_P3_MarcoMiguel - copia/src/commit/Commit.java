@@ -5,11 +5,9 @@ import java.util.UUID;
 
 /**
  * Representa un commit abstracto en un sistema de control de versiones.
- * <p>
  * Esta clase define la estructura básica de un commit, que incluye un identificador único,
  * el nombre del autor, la fecha de creación y una descripción del commit.
  * Además, se proporciona un método para determinar si dos commits modifican el mismo archivo.
- * </p>
  */
 public abstract class Commit {
     /** Contador estático para generar identificadores únicos. */
@@ -19,26 +17,26 @@ public abstract class Commit {
     private String id;
     
     /** Nombre del autor del commit. */
-    private String nombreAutor;
+    private String authorName;
     
     /** Fecha en la que se creó el commit. */
-    private LocalDate fechaCreacion;
+    private LocalDate creationDate;
     
     /** Descripción del commit. */
-    private String descripcion;
+    private String description;
     
     /**
      * Crea un nuevo commit con el autor y la descripción especificados.
      * La fecha de creación se establece en la fecha actual.
      *
-     * @param autor el nombre del autor del commit
+     * @param author el nombre del autor del commit
      * @param desc la descripción del commit
      */
-    public Commit(String autor, String desc) {
+    public Commit(String author, String desc) {
         this.id = generateId();
-        this.nombreAutor = autor;
-        this.descripcion = desc;
-        this.fechaCreacion = LocalDate.now();
+        this.authorName = author;
+        this.description = desc;
+        this.creationDate = LocalDate.now();
     }
 
     /**
@@ -46,12 +44,12 @@ public abstract class Commit {
      *
      * @param autor el nombre del autor del commit
      */
-    public Commit(String autor) {
-        this(autor, "no comment");
+    public Commit(String author) {
+        this(author, "no comment");
     }
 
     /**
-     * Crea un nuevo commit con valores por defecto ("John Doe" como autor y "no comment" como descripción).
+     * Crea un nuevo commit con valores por defecto
      */
     public Commit() {
         this("John Doe", "no comment");
@@ -59,10 +57,8 @@ public abstract class Commit {
 
     /**
      * Genera un identificador único para el commit.
-     * <p>
      * El identificador se compone de un número secuencial formateado a 5 dígitos,
      * seguido de una subcadena de 15 caracteres extraída de un UUID generado aleatoriamente.
-     * </p>
      *
      * @return un String que representa el identificador único del commit
      */
@@ -85,8 +81,8 @@ public abstract class Commit {
      *
      * @return el nombre del autor
      */
-    public String getNombreAutor() {
-        return nombreAutor;
+    public String getAuthorName() {
+        return authorName;
     }
 
     /**
@@ -94,8 +90,8 @@ public abstract class Commit {
      *
      * @return la fecha en la que se creó el commit
      */
-    public LocalDate getFechaCreacion() {
-        return fechaCreacion;
+    public LocalDate getCreationDate() {
+        return creationDate;
     }
 
     /**
@@ -103,19 +99,17 @@ public abstract class Commit {
      *
      * @return la descripción del commit
      */
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
     /**
      * Determina si este commit modifica el mismo archivo que otro commit.
-     * <p>
-     * Se compara el nombre del archivo obtenido mediante {@link #getFileName()}.
+     * Se compara el nombre del archivo obtenido
      * Si el otro commit es nulo, se retorna false.
-     * </p>
      *
      * @param other el otro commit a comparar
-     * @return {@code true} si ambos commits modifican el mismo archivo; de lo contrario, {@code false}
+     * @return true si ambos commits modifican el mismo archivo; de lo contrario, false
      */
     public boolean modifiesSameFile(Commit other) {
         if (other == null) return false;
@@ -124,11 +118,6 @@ public abstract class Commit {
     
     /**
      * Retorna el nombre del archivo afectado por este commit.
-     * <p>
-     * La implementación por defecto retorna una cadena vacía.
-     * Se recomienda sobrescribir este método en las subclases cuando se requiera especificar
-     * el archivo modificado.
-     * </p>
      *
      * @return una cadena que representa el nombre del archivo modificado
      */
@@ -138,17 +127,15 @@ public abstract class Commit {
 
     /**
      * Retorna una representación en forma de cadena del commit.
-     * <p>
      * La representación incluye el identificador, el autor, la fecha de creación y la descripción del commit.
-     * </p>
      *
      * @return una cadena que representa el commit
      */
     @Override
     public String toString() {
         return "commit " + this.id + "\n" +
-               "Author: " + this.nombreAutor + "\n" +
-               "Date: " + this.fechaCreacion + "\n" +
-               "Description: " + this.descripcion;
+               "Author: " + this.authorName + "\n" +
+               "Date: " + this.creationDate + "\n" +
+               "Description: " + this.description;
     }
 }

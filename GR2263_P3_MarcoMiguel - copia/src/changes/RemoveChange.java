@@ -2,10 +2,8 @@ package changes;
 
 /**
  * Representa un cambio de tipo eliminación en un archivo.
- * <p>
  * Esta clase encapsula la información necesaria para representar un cambio que elimina
  * un rango de líneas de un archivo.
- * </p>
  */
 public class RemoveChange extends Change {
     /** Línea inicial del rango de eliminación. */
@@ -33,9 +31,6 @@ public class RemoveChange extends Change {
 
     /**
      * Retorna el tipo de cambio.
-     * <p>
-     * Este método utiliza la implementación de la clase base {@link Change}.
-     * </p>
      *
      * @return el carácter que representa el tipo de cambio (en este caso, '-')
      */
@@ -64,9 +59,6 @@ public class RemoveChange extends Change {
 
     /**
      * Retorna una representación en forma de cadena del número de cambios realizados.
-     * <p>
-     * Este método calcula el número de líneas eliminadas y lo retorna precedido por el signo '-'.
-     * </p>
      *
      * @return una cadena en el formato "-N", donde N es el número de líneas eliminadas
      */

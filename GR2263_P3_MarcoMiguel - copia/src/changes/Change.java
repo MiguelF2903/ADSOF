@@ -2,11 +2,9 @@ package changes;
 
 /**
  * Representa un cambio realizado en un archivo.
- * <p>
  * Esta clase abstracta define la estructura básica para describir
  * un cambio, incluyendo la línea donde se aplica, la ruta del archivo
  * y el tipo de cambio (por ejemplo, '+' para adición, '-' para eliminación, etc.).
- * </p>
  */
 public abstract class Change {
     /** Ruta del archivo donde se aplica el cambio. */
@@ -60,12 +58,8 @@ public abstract class Change {
     
     /**
      * Retorna una representación en forma de cadena del número de cambios realizados.
-     * <p>
-     * Este método se espera que sea sobrescrito en las subclases para proporcionar
-     * una descripción específica del cambio. Por defecto, retorna {@code null}.
-     * </p>
      *
-     * @return una cadena representando el número de cambios o {@code null} si no se implementa.
+     * @return una cadena representando el número de cambios o null si no se implementa.
      */
     public String getNumberChanges(){
         return null;
